@@ -49,27 +49,27 @@ sect2datatime = {
     },
      6:{
         "start_hour":14,
-        "start_min":30,
+        "start_min":25,
         "end_hour":15,
-        "end_min":15,
+        "end_min":10,
     },
      7:{
         "start_hour":15,
-        "start_min":25,
+        "start_min":20,
         "end_hour":16,
-        "end_min":10,
+        "end_min":5,
     },
     8:{
         "start_hour":16,
-        "start_min":30,
+        "start_min":25,
         "end_hour":17,
-        "end_min":15,
+        "end_min":10,
     },
     9:{
     "start_hour":17,
-        "start_min":25,
+        "start_min":20,
         "end_hour":18,
-        "end_min":10,
+        "end_min":5,
     },
     10:{
     "start_hour":19,
@@ -245,6 +245,7 @@ def generateICS(week):
                     [weekstart,weekend] = cls_week.split("-")
                     start_time, end_time = sectAndWeek2Datatime(key,weekstart,start_sect,end_sect)
                 # 添加事件
+                desc = ''.join([str(k)+":"+str(v)+"\n" for k,v in cls.items()])
                 event = Event()
                 event_uuid = str(uuid1())+'@class'
                 event.add('uid', event_uuid)
@@ -252,7 +253,7 @@ def generateICS(week):
                 event.add('dtstart', start_time)
                 event.add('dtend', end_time)
                 event.add('location', cls["教室"])
-                event.add('description', '授课老师：'+cls['教师'])
+                event.add('description', desc)
                 event.add('rrule', {'freq': 'weekly',
                                     'interval': 1,
                                     'count': int(weekend)-int(weekstart)+1})
